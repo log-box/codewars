@@ -3,3 +3,7 @@
 # accum("RqaEzty") -> "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
 # accum("cwAt") -> "C-Ww-Aaa-Tttt"
 
+
+def accum(s):
+    _string = ''
+    for _char in s:
