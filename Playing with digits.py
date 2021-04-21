@@ -26,5 +26,25 @@
 
 
 def dig_pow(n, p):
-    # your code
-    return -1
+    n = str(n)
+    calc = 0
+    for num in n:
+        calc += int(num) ** p
+        p += 1
+    if calc % int(n) == 0:
+        return calc // int(n)
+    else:
+        return -1
+
+
+if __name__ == '__main__':
+    print(dig_pow(89, 1))
+    print(dig_pow(92, 1))
+    print(dig_pow(695, 2))
+    print(dig_pow(46288, 3))
+
+# def dig_pow(n, p):
+#   s = 0
+#   for i,c in enumerate(str(n)):
+#      s += pow(int(c),p+i)
+#   return s/n if s%n==0 else -1
