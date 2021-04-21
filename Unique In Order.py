@@ -9,7 +9,15 @@
 
 
 def unique_in_order(iterable):
-    return [iterable[i] for i in range(len(iterable)) if iterable[i] != iterable[i-1]]
+    _list = []
+    for i in range(len(iterable)):
+        if iterable[i] != iterable[i-1] and i != 0:
+            _list.append(iterable[i])
+        if i == 0:
+            _list.append(iterable[0])
+    return _list
+
+    # return [iterable[i] for i in range(len(iterable)) if iterable[i] != iterable[i-1] and i > 0]
 
 
 
@@ -18,3 +26,12 @@ print(unique_in_order('ABBCcAD'))
 print(unique_in_order([1,2,2,3,3]))
 print(unique_in_order('A'))
 print(unique_in_order('AAAABBBB'))
+
+# def unique_in_order(iterable):
+#     result = []
+#     prev = None
+#     for char in iterable[0:]:
+#         if char != prev:
+#             result.append(char)
+#             prev = char
+#     return result
