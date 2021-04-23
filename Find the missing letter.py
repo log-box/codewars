@@ -23,14 +23,21 @@
 def find_missing_letter(chars):
     _str = ''.join(chars)
     for i in range(len(_str)):
-        if ord(_str[i+1]) - ord(_str[i]) != 1 and i < len(_str):
-            temp = _str[i+1:]
-            _str = _str[:i] + chr(ord(_str[i]) + 1) + temp
-    return _str
+        if ord(_str[i+1]) - ord(_str[i]) != 1:
+            element = chr(ord(_str[i])+1)
+            if element:
+                return element
+
+# def find_missing_letter(chars):
+#     n = 0
+#     while ord(chars[n]) == ord(chars[n+1]) - 1:
+#         n += 1
+#     return chr(1+ord(chars[n]))
 
 
 
 print(find_missing_letter(['a','b','c','d','f']))
+print(find_missing_letter(["O","Q","R","S"]))
 # print(ord('O'))
 # print(ord('P'))
 #
