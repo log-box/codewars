@@ -24,36 +24,28 @@
 
 
 def snail(snail_map):
-    snail_map = [[1, 2, 3, 5, 8],
-                 [8, 9, 4, 6, 9],
-                 [7, 6, 5, 7, 10],
-                 [1, 2, 3, 4, 11]]
     temp_array_1 = []
     while snail_map:
-        if not temp_array_1:
-            temp_array_1 = snail_map.pop(0)
-        # for i in range(len(snail_map)):
+        temp_array_1.extend(snail_map.pop(0))
+        if not snail_map:
+            return temp_array_1
         for j in range(len(snail_map)):
-            # for j in range(len(snail_map[i])-1):
-                # temp1 = snail_map[j]
-                # temp = snail_map[j].pop(len(temp1)-1)
             temp_array_1.append(snail_map[j].pop(len(snail_map[j])-1))
-        test = range(len(snail_map))
-        for i in range(len(snail_map[len(snail_map)-1])):
-            # reverse_array = snail_map[len(snail_map)-1].reverse()
-            snail_map[len(snail_map) - 1].reverse()
-            temp_array_1.append(snail_map[i].pop(len(snail_map)-1))
-
-        print(temp_array_1)
-    print('done')
-    # for string in range(len(snail_map)):
-    #     for row in range(len(snail_map[string])):
-    #         print(snail_map[row][string], end=' ')
+        snail_map[len(snail_map) - 1].reverse()
+        temp_array_1.extend(snail_map.pop(len(snail_map) - 1))
+        for i in reversed(range(len(snail_map))):
+            temp_array_1.append(snail_map[i].pop(0))
+    return temp_array_1
 
 
-snail([[1, 2, 3],
-       [8, 9, 4],
-       [7, 6, 5]])
+print(snail([[1, 2, 3, 5, 8],
+             [8, 9, 4, 6, 9],
+             [7, 6, 5, 7, 10],
+             [2, 3, 4, 5, 11]]))
+
+print(snail([[1, 2, 3],
+             [8, 9, 4],
+             [7, 6, 5]]))
 
 # array = [[1,2,3],
 #          [4,5,6],
@@ -67,3 +59,29 @@ snail([[1, 2, 3],
 #          [7,6,5]]
 # expected = [1,2,3,4,5,6,7,8,9]
 # test.assert_equals(snail(array), expected)
+
+# def snail(array):
+#     ret = []
+#     if array and array[0]:
+#         size = len(array)
+#         for n in xrange((size + 1) // 2):
+#             for x in xrange(n, size - n):
+#                 ret.append(array[n][x])
+#             for y in xrange(1 + n, size - n):
+#                 ret.append(array[y][-1 - n])
+#             for x in xrange(2 + n, size - n + 1):
+#                 ret.append(array[-1 - n][-x])
+#             for y in xrange(2 + n, size - n):
+#                 ret.append(array[-y][n])
+#     return ret
+#
+#
+# import numpy as np
+#
+# def snail(array):
+#     m = []
+#     array = np.array(array)
+#     while len(array) > 0:
+#         m += array[0].tolist()
+#         array = np.rot90(array[1:])
+#     return m
