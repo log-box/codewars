@@ -14,9 +14,9 @@ import re
 
 
 def domain_name(url):
-    result = re.findall(r'^[wWHhTtPpSs:/.]+([a-z0-9A-Z-]+)', url)
-    # result = re.findall(r"((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z]){2,6}([a-zA-Z0-9\.\&\/\?\:@\-_=#])*", url)
-    # re.match(result, "hyphen-site.ru")
+    # result = re.findall(r'^[wWHhTtPpSs:/.]+([a-z0-9A-Z-]+)', url)
+    pattern = r"((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z]){2,6}([a-zA-Z0-9\.\&\/\?\:@\-_=#])*"
+    result = re.match(pattern, url)
     return result[0]
 
 print(domain_name("http://github.com/carbonfive/raygun"))
