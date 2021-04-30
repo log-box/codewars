@@ -9,27 +9,40 @@
 # You can assume nothing about the triplets given to you other than that they are valid triple
 # ts and that they contain sufficient information to deduce the original string. In particular
 # , this means that the secret string will never contain letters that do not occur in one of the triplets given to you.
+# Есть секретная строка, которая вам неизвестна. Учитывая набор случайных троек из строки, восстановите исходную строку.
+#
+# Тройка здесь определяется как последовательность из трех букв, так что каждая буква встречается где-то перед следую
+# щей в данной строке. «whi» - тройка для строки «whatisup».
+#
+# В качестве упрощения вы можете предположить, что ни одна буква не встречается в секретной строке более одного раза.
+#
+# Вы не можете ничего предполагать о данных вам триплетах, кроме того, что они являются действительными триплетами и
+# что они содержат достаточно информации для вывода исходной строки. В частности, это означает, что секретная строка
+# никогда не будет содержать букв, которых нет ни в одной из данных вам троек.
+
 
 def recoverSecret(triplets):
-    return'whatisup'
-  #'triplets is a list of triplets from the secrent string. Return the string.'
 
+    result_array = set()
+    for i in range(len(triplets)):
+        for j in range(len(triplets[i])):
+            result_array.add(triplets[i][j])
 
+    result_array = list(result_array)
 
-
-
+    print(result_array)
 
 
 # secret = "whatisup"
-# triplets = [
-#   ['t','u','p'],
-#   ['w','h','i'],
-#   ['t','s','u'],
-#   ['a','t','s'],
-#   ['h','a','p'],
-#   ['t','i','s'],
-#   ['w','h','s']
-# ]
+triplets = [
+  ['t','u','p'],
+  ['w','h','i'],
+  ['t','s','u'],
+  ['a','t','s'],
+  ['h','a','p'],
+  ['t','i','s'],
+  ['w','h','s']
+]
+recoverSecret(triplets)
 
-# ['t','u','p'] ['w','h','i'] [,'s',] ['a',,] [,,] [,,] [,,]
-# ['w','h','s'] ['t','i',] ['h','a','p'] ['a','t','s'] ['t','s','u'] [,,'i'] ['t','u','p']
+#'w' 'h' 'a' 't' 'i' 's' 'u' 'p'
