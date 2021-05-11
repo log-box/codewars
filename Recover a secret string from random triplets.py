@@ -27,8 +27,13 @@ def recoverSecret(triplets):
     for i in range(len(triplets)):
         for j in range(len(triplets[i])):
             result_array.add(triplets[i][j])
-
     result_array = list(result_array)
+    for i in range(len(triplets)):
+        for j in range(len(triplets[i])):
+            temp = triplets[i].index(triplets[i][j])
+
+
+
 
     print(result_array)
 
