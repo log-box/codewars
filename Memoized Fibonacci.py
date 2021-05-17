@@ -27,7 +27,11 @@
 # deficiencies of tree recursion Can you make it so the memoization cache is private to this function?
 
 
+M = {0: 0, 1: 1}
 def fibonacci(n):
-    if n in [0, 1]:
-        return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
+    if n in M:
+        return M[n]
+    M[n] = fibonacci(n - 1) + fibonacci(n - 2)
+    return M[n]
+
+print(fibonacci(5))
