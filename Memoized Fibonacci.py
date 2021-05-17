@@ -34,4 +34,4 @@ def fibonacci(n):
     M[n] = fibonacci(n - 1) + fibonacci(n - 2)
     return M[n]
 
-print(fibonacci(5))
+print(fibonacci(10))
