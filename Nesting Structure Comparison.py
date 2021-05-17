@@ -25,6 +25,12 @@ def same_structure_as(original, other):
 #             if not same_structure_as(o1, o2): return False
 #         else: return True
 #     else: return not isinstance(original, list) and not isinstance(other, list)
+#
+# def same_structure_as(original, other):
+#     if type(original) == list == type(other):
+#         return len(original) == len(other) and all(map(same_structure_as, original, other))
+#     else:
+#         return type(original) != list != type(other)
 
 print(same_structure_as([1, 1, 1], [2, 2, 2]))
 print(same_structure_as([1, [1, 1]], [2, [2, 2]]))
