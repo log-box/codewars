@@ -31,14 +31,66 @@
 # Detective, we are counting on you!
 
 
+def pin_pad_returns(digit):
+    pin_pad = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+        [None, 0, None],
+    ]
+    if digit in [x for x in range(0, 10)]:
+        if digit == 1:
+        #     return [1, 2, 4]
+        # if digit == 2:
+        #     return [1, 2, 3, 5]
+        if digit == 3:
+            return [2, 3, 6]
+        # if digit == 4:
+        #     return [1, 4, 5, 7]
+        # if digit == 5:
+        #     return [2, 4, 5, 6, 8]
+        if digit == 6:
+            return [3, 5, 6, 9]
+        # if digit == 7:
+        #     return [4, 7, 8]
+        # if digit == 8:
+        #     return [0, 5, 7, 8, 9]
+        if digit == 9:
+            return [6, 8, 9]
+        # if digit == 0:
+        #     return [0, 8]
+    else:
+        return -1
+
+# def elements_concat(list):
+#     for item in list:
+#         for i in range(item):
+
+
 def get_pins(observed):
-  '''TODO: This is your job, detective!'''
+    digits_list = []
+    result = []
+    while observed != 0:
+        digits_list.append(observed % 10)
+        observed = observed // 10
+    digits_list.reverse()
+    copy_digits_list = digits_list.copy()
+    for i in range(len(digits_list)):
+        left = copy_digits_list[:i]
+        digit = copy_digits_list[i]
+        rigth = copy_digits_list[i+1:]
+        center = []
+        for item in pin_pad_returns(digit):
+            center.clear()
+            center.append(item)
+            result.append(''.join(map((lambda i: str(i)), (left + center + rigth))))
+    print(result)
 
-
+get_pins(963)
+# print(pin_pad_returns(5))
 
 # PIN: 8: [1, 2, 3] should equal ['0', '5', '7', '8', '9']
-# PIN: 11: [1, 2, 3] should equal ['11', '12', '14', '21',
-# '22', '24', '41', '42', '44']
+# PIN: 11: [1, 2, 3] should equal ['11', '12', '14', '21', '22', '24', '41', '42', '44']
 # PIN: 369: [1, 2, 3] should equal ['236', '238', '239', '256', '258', '259', '266', '268', '269', '296'
 # , '298', '299', '336', '338', '339', '356', '358', '359', '366', '368', '369', '396', '398',
 # '399', '636', '638', '639', '656', '658', '659', '666', '668', '669', '696', '698', '699']
