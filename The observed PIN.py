@@ -31,62 +31,49 @@
 # Detective, we are counting on you!
 
 
-def pin_pad_returns(digit):
-    pin_pad = [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9],
-        [None, 0, None],
-    ]
-    if digit in [x for x in range(0, 10)]:
-        if digit == 1:
-        #     return [1, 2, 4]
-        # if digit == 2:
-        #     return [1, 2, 3, 5]
-        if digit == 3:
-            return [2, 3, 6]
-        # if digit == 4:
-        #     return [1, 4, 5, 7]
-        # if digit == 5:
-        #     return [2, 4, 5, 6, 8]
-        if digit == 6:
-            return [3, 5, 6, 9]
-        # if digit == 7:
-        #     return [4, 7, 8]
-        # if digit == 8:
-        #     return [0, 5, 7, 8, 9]
-        if digit == 9:
-            return [6, 8, 9]
-        # if digit == 0:
-        #     return [0, 8]
-    else:
-        return -1
+pin_pad = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [None, 0, None],
+]
 
-# def elements_concat(list):
-#     for item in list:
-#         for i in range(item):
+pin_pad_dict = {
+    1: ['1', '2', '4'],
+    2: ['1', '2', '3', '5'],
+    3: ['3', '5', '6', '9'],
+    4: ['1', '4', '5', '7'],
+    5: ['2', '4', '5', '6', '8'],
+    6: ['3', '5', '6', '9'],
+    7: ['4', '7', '8'],
+    8: ['0', '5', '7', '8', '9'],
+    9: ['6', '8', '9'],
+    0: ['0', '8']
+}
 
 
 def get_pins(observed):
     digits_list = []
     result = []
+    tracking_dict = {}
     while observed != 0:
         digits_list.append(observed % 10)
         observed = observed // 10
     digits_list.reverse()
-    copy_digits_list = digits_list.copy()
     for i in range(len(digits_list)):
-        left = copy_digits_list[:i]
-        digit = copy_digits_list[i]
-        rigth = copy_digits_list[i+1:]
-        center = []
-        for item in pin_pad_returns(digit):
-            center.clear()
-            center.append(item)
-            result.append(''.join(map((lambda i: str(i)), (left + center + rigth))))
-    print(result)
+        tracking_dict[digits_list[i]] = {len(pin_pad_dict[digits_list[i]]): 0}
+    for i in range(len(digits_list)):
+        for j in range(len(digits_list)):
+            temp = pin_pad_dict[digits_list[j]][i]
+            if digits_list[j] == digits_list[len(digits_list)-1]:
+                temp = pin_pad_dict[digits_list[j]][i+1]
+                print(temp)
+            print(temp)
 
-get_pins(963)
+    return tracking_dict
+
+
+print(get_pins(519))
 # print(pin_pad_returns(5))
 
 # PIN: 8: [1, 2, 3] should equal ['0', '5', '7', '8', '9']
