@@ -31,6 +31,9 @@
 # Detective, we are counting on you!
 
 
+from itertools import product
+
+
 pin_pad = [
     [1, 2, 3],
     [4, 5, 6],
@@ -41,7 +44,7 @@ pin_pad = [
 pin_pad_dict = {
     1: ['1', '2', '4'],
     2: ['1', '2', '3', '5'],
-    3: ['3', '5', '6', '9'],
+    3: ['2', '3', '6'],
     4: ['1', '4', '5', '7'],
     5: ['2', '4', '5', '6', '8'],
     6: ['3', '5', '6', '9'],
@@ -62,18 +65,21 @@ def get_pins(observed):
     digits_list.reverse()
     for i in range(len(digits_list)):
         tracking_dict[digits_list[i]] = {len(pin_pad_dict[digits_list[i]]): 0}
-    for i in range(len(digits_list)):
-        for j in range(len(digits_list)):
-            temp = pin_pad_dict[digits_list[j]][i]
-            if digits_list[j] == digits_list[len(digits_list)-1]:
-                temp = pin_pad_dict[digits_list[j]][i+1]
-                print(temp)
-            print(temp)
+    while tracking_dict[digits_list[0]][len(pin_pad_dict[digits_list[0]])] < len(pin_pad_dict[digits_list[0]]):
+        temp = ''
+        for item in digits_list:
+            if tracking_dict[digits_list[digits_list.index(item)]][len(pin_pad_dict[digits_list[digits_list.index(item)]])] == len(pin_pad_dict[digits_list[digits_list.index(item)]]):
+                tracking_dict[digits_list[digits_list.index(item)-1]][len(pin_pad_dict[digits_list[digits_list.index(item)-1]])] +=1
+                tracking_dict[digits_list[digits_list.index(item)]][len(pin_pad_dict[digits_list[digits_list.index(item)]])] = 0
+            temp += pin_pad_dict[item][tracking_dict[item][len(pin_pad_dict[item])]]
+            if item == digits_list[-1]:
+                tracking_dict[digits_list[-1]][len(pin_pad_dict[digits_list[-1]])] += 1
 
-    return tracking_dict
+        result.append(temp)
+    return result
 
 
-print(get_pins(519))
+print(get_pins(369874))
 # print(pin_pad_returns(5))
 
 # PIN: 8: [1, 2, 3] should equal ['0', '5', '7', '8', '9']
