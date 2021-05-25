@@ -31,15 +31,15 @@
 # Detective, we are counting on you!
 
 
-from itertools import product
+# from itertools import product
 
 
-pin_pad = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    [None, 0, None],
-]
+# pin_pad = [
+#     [1, 2, 3],
+#     [4, 5, 6],
+#     [7, 8, 9],
+#     [None, 0, None],
+# ]
 
 pin_pad_dict = {
     1: ['1', '2', '4'],
@@ -57,29 +57,46 @@ pin_pad_dict = {
 
 def get_pins(observed):
     digits_list = []
+    elements = [[]]
+    pools = []
     result = []
-    tracking_dict = {}
-    while observed != 0:
-        digits_list.append(observed % 10)
-        observed = observed // 10
-    digits_list.reverse()
-    for i in range(len(digits_list)):
-        tracking_dict[digits_list[i]] = {len(pin_pad_dict[digits_list[i]]): 0}
-    while tracking_dict[digits_list[0]][len(pin_pad_dict[digits_list[0]])] < len(pin_pad_dict[digits_list[0]]):
-        temp = ''
-        for item in digits_list:
-            if tracking_dict[digits_list[digits_list.index(item)]][len(pin_pad_dict[digits_list[digits_list.index(item)]])] == len(pin_pad_dict[digits_list[digits_list.index(item)]]):
-                tracking_dict[digits_list[digits_list.index(item)-1]][len(pin_pad_dict[digits_list[digits_list.index(item)-1]])] +=1
-                tracking_dict[digits_list[digits_list.index(item)]][len(pin_pad_dict[digits_list[digits_list.index(item)]])] = 0
-            temp += pin_pad_dict[item][tracking_dict[item][len(pin_pad_dict[item])]]
-            if item == digits_list[-1]:
-                tracking_dict[digits_list[-1]][len(pin_pad_dict[digits_list[-1]])] += 1
-
-        result.append(temp)
+    # этот кусок нужен, если на вход дается число, а не строка
+    # while observed != 0:
+    #     digits_list.append(observed % 10)
+    #     observed = observed // 10
+    # digits_list.reverse()
+    ############################################################
+    # этот кусок нужен если на вход дается строка
+    for item in observed:
+        digits_list.append(item)
+    ############################################################
+    for item in digits_list:
+        pools.append(pin_pad_dict[int(item)])
+    for pool in pools:
+        elements = [x+[y] for x in elements for y in pool]
+    for item in elements:
+        data = ''.join(item)
+        result.append(data)
     return result
 
+# def product(*args, repeat=1):
+#     # product('ABCD', 'xy') --> Ax Ay Bx By Cx Cy Dx Dy
+#     # product(range(2), repeat=3) --> 000 001 010 011 100 101 110 111
+#     pools = [tuple(pool) for pool in args] * repeat
+#     result = [[]]
+#     for pool in pools:
+#         result = [x+[y] for x in result for y in pool]
+#     temp = []
+#     # for pool in pools:
+#     #     for y in pool:
+#     #         for x in result:
+#     #             result.append((x + [y]))
+#     for prod in result:
+#         yield tuple(prod)
 
-print(get_pins(369874))
+print(get_pins('369'))
+# for item in product(['1', '2', '4'], ['3', '5', '6']):
+#     print(''.join(item))
 # print(pin_pad_returns(5))
 
 # PIN: 8: [1, 2, 3] should equal ['0', '5', '7', '8', '9']
@@ -87,3 +104,10 @@ print(get_pins(369874))
 # PIN: 369: [1, 2, 3] should equal ['236', '238', '239', '256', '258', '259', '266', '268', '269', '296'
 # , '298', '299', '336', '338', '339', '356', '358', '359', '366', '368', '369', '396', '398',
 # '399', '636', '638', '639', '656', '658', '659', '666', '668', '669', '696', '698', '699']
+#
+# from itertools import product
+#
+# ADJACENTS = ('08', '124', '2135', '326', '4157', '52468', '6359', '748', '85790', '968')
+#
+# def get_pins(observed):
+#     return [''.join(p) for p in product(*(ADJACENTS[int(d)] for d in observed))]
