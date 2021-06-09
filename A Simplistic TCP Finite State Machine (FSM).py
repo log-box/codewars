@@ -60,9 +60,10 @@ def traverse_TCP_states(events):
     state = "CLOSED"  # initial state, always
     for item in events:
         if checksStateEvent(state, item):
-            states[state]
+            state = states[state][item]
         else:
             return 'ERROR'
+    return state
 
 
 
@@ -75,8 +76,8 @@ def checksStateEvent(state, event):
     else:
         return False
 
-# Берешь первое состояние и его событие и ищешь какое состояние получилось. Его на вход ко второму событию и т.д.
-# (the format is INITIAL_STATE: EVENT -> NEW_STATE)
+
+print(traverse_TCP_states(["APP_ACTIVE_OPEN", "RCV_SYN_ACK", "APP_CLOSE", "RCV_FIN_ACK", "RCV_ACK"]))
 #
 # ["APP_PASSIVE_OPEN", "APP_SEND", "RCV_SYN_ACK"] =>  "ESTABLISHED"
 #
